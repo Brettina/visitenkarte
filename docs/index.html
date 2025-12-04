@@ -139,9 +139,9 @@
         const buildUrl = "Build";
         const loaderUrl = buildUrl + "/docs.loader.js";
         const config = {
-            dataUrl: buildUrl + "/27013f90fcd27a470b0350efdfb6970f.data",
-            frameworkUrl: buildUrl + "/d41d8cd98f00b204e9800998ecf8427e.js",
-            codeUrl: buildUrl + "/d41d8cd98f00b204e9800998ecf8427e.wasm",
+            dataUrl: buildUrl + "/58f81d811b6b8e7469a31f50c83c8695.data",
+            frameworkUrl: buildUrl + "/72bca7617db72b4ce36070befbbd03e5.js",
+            codeUrl: buildUrl + "/e627ac68b7cd981670c5d3d48d7ddeb2.wasm",
             streamingAssetsUrl: "StreamingAssets",
             companyName: "BL",
             productName: "visitenkarte",
@@ -149,7 +149,10 @@
         //Useful when used along with Filename as Hashes option
             cacheControl: function (url) {
             // typically includes: .data, .bundle, .zpt
-            ZAPPAR_WEBGL_CACHING   
+            if (url.match(/\.data/) || url.match(/\.bundle/) || url.match(/\.zpt/)) {
+             return "immutable";
+}
+   
             if (url.match(/\.mp4/) || url.match(/\.custom/) || url.match(/\.zbin/)) {
                 return "immutable";
             }   
@@ -181,7 +184,7 @@
         //script.onload = () => { CreateUnityLoader();   };
         document.body.appendChild(script);
 
-        ZAPPAR_PERMISSIONS_IMPLEMENTATION
+        window.zappar.permission_request_ui_promise().then(WaitForZCVLoad);
 
         function WaitForZCVLoad() {
             if (zappar.loaded()) {
